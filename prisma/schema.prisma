@@ -1,0 +1,49 @@
+// Este é o arquivo de schema do Prisma.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // Prisma vai ler a chave do banco da Vercel
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   // Vamos armazenar a senha criptografada
+  role      String   @default("user")
+  name      String?
+  cpfCnpj   String?
+  // Adicione aqui outros campos do formulário de registro se quiser salvá-los
+  
+  anamnesis Anamnesis[]
+  signInLogs SignInLog[]
+}
+
+model Anamnesis {
+  id        String   @id @default(cuid())
+  jsonData  Json     // Armazena a ficha inteira como um objeto JSON
+  createdAt DateTime @default(now())
+  
+  owner     User     @relation(fields: [ownerId], references: [id])
+  ownerId   String
+}
+
+model Video {
+  id        String   @id @default(cuid())
+  name      String
+  url       String   // No futuro, isso pode apontar para um serviço de armazenamento de vídeo
+  createdAt DateTime @default(now())
+}
+
+model SignInLog {
+  id        String   @id @default(cuid())
+  email     String
+  location  String
+  timestamp DateTime @default(now())
+  
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+}

@@ -1,0 +1,5 @@
+{
+  "name": "Optimetrics Visual Testing Platform",
+  "description": "A comprehensive web-based platform for ophthalmologists and optometrists to conduct a variety of visual tests, manage patient anamnesis forms, and access specialized ophthalmic calculators. This application is designed to be fully responsive and mobile-friendly, providing a seamless experience on any device.",
+  "requestFramePermissions": []
+}

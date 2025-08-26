@@ -23,17 +23,23 @@ export const locales = {
       login: "Login",
       register: "Registrar-se",
       signIn: "Entrar no Sistema",
+<<<<<<< HEAD
       signingIn: "Entrando...",
       registering: "Registrando...",
       verifying: "Verificando...",
+=======
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
       error: {
         passwordMismatch: "As senhas não coincidem.",
         invalidCpf: "CPF inválido.",
         invalidCnpj: "CNPJ inválido.",
         invalidCpfCnpj: "CPF/CNPJ inválido.",
+<<<<<<< HEAD
         userNotFound: "Usuário não encontrado.",
         invalidPassword: "Senha inválida.",
         emailExists: "Este email já está cadastrado."
+=======
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
       },
       form: {
         email: "Email",
@@ -120,7 +126,10 @@ export const locales = {
       title: "ANAMNESE | OPTOMETRIA",
       validate: "Validar Formulário",
       savePDF: "Salvar em PDF",
+<<<<<<< HEAD
       saving: "Salvando...",
+=======
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
       form: {
         consultationDate: "Data da consulta",
         name: "Nome completo",
@@ -228,17 +237,23 @@ export const locales = {
       login: "Login",
       register: "Register",
       signIn: "Sign In",
+<<<<<<< HEAD
       signingIn: "Signing In...",
       registering: "Registering...",
       verifying: "Verifying...",
+=======
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
       error: {
         passwordMismatch: "Passwords do not match.",
         invalidCpf: "Invalid CPF.",
         invalidCnpj: "Invalid CNPJ.",
         invalidCpfCnpj: "Invalid CPF/CNPJ.",
+<<<<<<< HEAD
         userNotFound: "User not found.",
         invalidPassword: "Invalid password.",
         emailExists: "This email is already registered."
+=======
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
       },
       form: {
         email: "Email",
@@ -325,7 +340,10 @@ export const locales = {
       title: "ANAMNESIS | OPTOMETRY",
       validate: "Validate Form",
       savePDF: "Save as PDF",
+<<<<<<< HEAD
       saving: "Saving...",
+=======
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
       form: {
         consultationDate: "Consultation Date",
         name: "Full Name",
@@ -433,17 +451,23 @@ export const locales = {
       login: "Iniciar Sesión",
       register: "Registrarse",
       signIn: "Entrar",
+<<<<<<< HEAD
       signingIn: "Iniciando sesión...",
       registering: "Registrando...",
       verifying: "Verificando...",
+=======
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
       error: {
         passwordMismatch: "Las contraseñas no coinciden.",
         invalidCpf: "CPF inválido.",
         invalidCnpj: "CNPJ inválido.",
         invalidCpfCnpj: "CPF/CNPJ inválido.",
+<<<<<<< HEAD
         userNotFound: "Usuario no encontrado.",
         invalidPassword: "Contraseña inválida.",
         emailExists: "Este correo ya está registrado."
+=======
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
       },
       form: {
         email: "Correo",
@@ -530,7 +554,10 @@ export const locales = {
       title: "ANAMNESIS | OPTOMETRÍA",
       validate: "Validar Formulario",
       savePDF: "Guardar como PDF",
+<<<<<<< HEAD
       saving: "Guardando...",
+=======
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
       form: {
         consultationDate: "Fecha de la consulta",
         name: "Nombre completo",

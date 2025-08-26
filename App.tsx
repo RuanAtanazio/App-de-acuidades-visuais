@@ -5,10 +5,15 @@ import AuthPage from './pages/AuthPage';
 import AnamnesePage from './pages/AnamnesePage';
 import HistoryPage from './pages/HistoryPage';
 import TestRunnerPage from './pages/TestRunnerPage';
+<<<<<<< HEAD
 import AdminPage from './pages/AdminPage'; // Import AdminPage
 import { TestsPage, CalculatorsPage, SettingsPage, VideosPage } from './pages/MainPages';
 import { AnamnesisIcon, TestsIcon, CalculatorIcon, HistoryIcon, SettingsIcon, VideoIcon } from './components/Icons';
 import * as dataService from './services/dataService';
+=======
+import { TestsPage, CalculatorsPage, SettingsPage, VideosPage } from './pages/MainPages';
+import { AnamnesisIcon, TestsIcon, CalculatorIcon, HistoryIcon, SettingsIcon, VideoIcon } from './components/Icons';
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
 // FIX: Updated to import 'locales' instead of 'translations' for consistency.
 import { locales } from './locales';
 
@@ -99,17 +104,29 @@ export const useSettings = () => useContext(SettingsContext)!;
 // --- HISTORY CONTEXT ---
 interface HistoryContextType {
     history: AnamnesisFormData[];
+<<<<<<< HEAD
     addOrUpdateHistory: (entry: AnamnesisFormData) => Promise<void>;
 }
 const HistoryContext = createContext<HistoryContextType>({ history: [], addOrUpdateHistory: async () => {} });
+=======
+    addOrUpdateHistory: (entry: AnamnesisFormData) => void;
+}
+const HistoryContext = createContext<HistoryContextType>({ history: [], addOrUpdateHistory: () => {} });
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
 export const useHistory = () => useContext(HistoryContext)!;
 
 // --- VIDEOS CONTEXT ---
 interface VideosContextType {
     videos: Video[];
+<<<<<<< HEAD
     addVideo: (video: Video) => Promise<void>;
 }
 const VideosContext = createContext<VideosContextType>({ videos: [], addVideo: async () => {} });
+=======
+    addVideo: (video: Video) => void;
+}
+const VideosContext = createContext<VideosContextType>({ videos: [], addVideo: () => {} });
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
 export const useVideos = () => useContext(VideosContext)!;
 
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -126,7 +143,10 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   const logout = useCallback(() => {
     setUser(null);
     localStorage.removeItem('optimetrics_user');
+<<<<<<< HEAD
     // Also remove admin-specific data if any
+=======
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
   }, []);
 
   const value = useMemo(() => ({ user, login, logout }), [user, login, logout]);
@@ -160,6 +180,7 @@ const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children })
 };
 
 const HistoryProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+<<<<<<< HEAD
     const { user } = useAuth();
     const [history, setHistory] = useState<AnamnesisFormData[]>([]);
 
@@ -183,12 +204,34 @@ const HistoryProvider: React.FC<{ children: React.ReactNode }> = ({ children }) 
         const newHistory = await dataService.saveHistoryForUser(user.email, entry);
         setHistory(newHistory);
     }, [user]);
+=======
+    const [history, setHistory] = useState<AnamnesisFormData[]>(() => {
+        const savedHistory = localStorage.getItem('optimetrics_history');
+        return savedHistory ? JSON.parse(savedHistory) : [];
+    });
+
+    const addOrUpdateHistory = useCallback((entry: AnamnesisFormData) => {
+        setHistory(prev => {
+            const existingIndex = prev.findIndex(item => item.id === entry.id);
+            let newHistory;
+            if (existingIndex > -1) {
+                newHistory = [...prev];
+                newHistory[existingIndex] = entry;
+            } else {
+                newHistory = [entry, ...prev];
+            }
+            localStorage.setItem('optimetrics_history', JSON.stringify(newHistory));
+            return newHistory;
+        });
+    }, []);
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
     
     const value = useMemo(() => ({ history, addOrUpdateHistory }), [history, addOrUpdateHistory]);
     return <HistoryContext.Provider value={value}>{children}</HistoryContext.Provider>;
 };
 
 const VideosProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+<<<<<<< HEAD
     const [videos, setVideos] = useState<Video[]>([]);
     
     useEffect(() => {
@@ -209,6 +252,27 @@ const VideosProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
             // Error is handled in dataService, this catch prevents app crash
             console.error("Failed to add video in provider.");
         }
+=======
+    const [videos, setVideos] = useState<Video[]>(() => {
+        const savedVideos = localStorage.getItem('optimetrics_videos');
+        return savedVideos ? JSON.parse(savedVideos) : [];
+    });
+
+    const addVideo = useCallback((video: Video) => {
+        setVideos(prev => {
+            const newVideos = [...prev, video];
+            // Note: Storing video data URLs in localStorage is inefficient and has size limits.
+            // This is for demonstration in a client-only application.
+            try {
+                localStorage.setItem('optimetrics_videos', JSON.stringify(newVideos));
+            } catch (e) {
+                console.error("Failed to save videos to localStorage. Storage may be full.", e);
+                alert("Could not save video. Local storage is likely full.");
+                return prev; // Return previous state if saving fails
+            }
+            return newVideos;
+        });
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
     }, []);
     
     const value = useMemo(() => ({ videos, addVideo }), [videos, addVideo]);
@@ -305,6 +369,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
     if (!user) {
         return <Navigate to="/auth" replace />;
     }
+<<<<<<< HEAD
     // If admin logs in, redirect them from user pages to their dashboard
     if (user.role === 'admin') {
         return <Navigate to="/admin" replace />;
@@ -324,6 +389,11 @@ const AdminProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children
 };
 
 
+=======
+    return <>{children}</>;
+};
+
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
 const AppProviders: React.FC<{children: React.ReactNode}> = ({ children }) => (
     <I18nProvider>
         <AuthProvider>
@@ -345,7 +415,10 @@ export default function App() {
                 <Routes>
                     <Route path="/auth" element={<AuthPage />} />
                     <Route path="/test/:testId" element={<ProtectedRoute><TestRunnerPage /></ProtectedRoute>} />
+<<<<<<< HEAD
                     <Route path="/admin" element={<AdminProtectedRoute><AdminPage /></AdminProtectedRoute>} />
+=======
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
                     <Route path="/" element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
                         <Route index element={<Navigate to="/anamnese" replace />} />
                         <Route path="anamnese" element={<AnamnesePage />} />

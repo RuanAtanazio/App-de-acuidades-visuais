@@ -76,7 +76,10 @@ const AnamnesePage: React.FC = () => {
     const { history, addOrUpdateHistory } = useHistory();
     const { t } = useI18n();
     const [formData, setFormData] = useState<AnamnesisFormData>(initialFormData);
+<<<<<<< HEAD
     const [loading, setLoading] = useState(false);
+=======
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
     
     useEffect(() => {
         if (id) {
@@ -119,11 +122,16 @@ const AnamnesePage: React.FC = () => {
     }, [formData.cep]);
 
 
+<<<<<<< HEAD
     const handleSave = async () => {
+=======
+    const handleSave = () => {
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
         if (!formData.nome) {
             alert(t('anamnese.error.nameRequired'));
             return;
         }
+<<<<<<< HEAD
         setLoading(true);
         try {
             const updatedFormData = {...formData};
@@ -142,10 +150,23 @@ const AnamnesePage: React.FC = () => {
     };
 
     const handleSavePDF = async () => {
+=======
+        const updatedFormData = {...formData};
+        if (!id) { // set name for declaration only on first save
+          updatedFormData.decl_nome = formData.nome;
+        }
+        setFormData(updatedFormData);
+        addOrUpdateHistory(updatedFormData);
+        alert(t('anamnese.success.validated'));
+    };
+
+    const handleSavePDF = () => {
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
          if (!formData.nome) {
             alert(t('anamnese.error.nameRequired'));
             return;
         }
+<<<<<<< HEAD
         setLoading(true);
         try {
             await addOrUpdateHistory(formData);
@@ -157,6 +178,11 @@ const AnamnesePage: React.FC = () => {
         } finally {
             setLoading(false);
         }
+=======
+        addOrUpdateHistory(formData);
+        generateAnamnesisPDF(formData, t);
+        navigate('/history');
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
     }
 
     const motivoOptions = t('anamnese.motivos.options').split(',');
@@ -245,12 +271,17 @@ const AnamnesePage: React.FC = () => {
                     </div>
 
                     <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-end">
+<<<<<<< HEAD
                         <button type="button" onClick={handleSave} disabled={loading} className="px-6 py-2 bg-secondary text-white rounded-md font-semibold hover:bg-blue-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed">
                             {loading ? t('anamnese.saving') : t('anamnese.validate')}
                         </button>
                         <button type="button" onClick={handleSavePDF} disabled={loading} className="px-6 py-2 bg-gray-600 text-white rounded-md font-semibold hover:bg-gray-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed">
                              {loading ? t('anamnese.saving') : t('anamnese.savePDF')}
                         </button>
+=======
+                        <button type="button" onClick={handleSave} className="px-6 py-2 bg-secondary text-white rounded-md font-semibold hover:bg-blue-600 transition-colors">{t('anamnese.validate')}</button>
+                        <button type="button" onClick={handleSavePDF} className="px-6 py-2 bg-gray-600 text-white rounded-md font-semibold hover:bg-gray-700 transition-colors">{t('anamnese.savePDF')}</button>
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
                     </div>
                 </form>
             </div>

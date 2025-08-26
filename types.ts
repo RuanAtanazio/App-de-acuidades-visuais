@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 
 export interface User {
   email: string;
@@ -6,6 +7,11 @@ export interface User {
   role?: 'user' | 'admin';
   password?: string; // Added for explicit type safety
   [key: string]: any; // Keep for other registration fields
+=======
+export interface User {
+  email: string;
+  name?: string;
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
 }
 
 export interface AppSettings {
@@ -79,6 +85,7 @@ export interface Video {
   url: string;
 }
 
+<<<<<<< HEAD
 export type CalculatorType = 'traumaOcular' | 'dryEye' | 'astigmatismo' | 'presbiopia' | 'refração' | 'vertex';
 
 export interface SignInLog {
@@ -86,3 +93,6 @@ export interface SignInLog {
     location: string;
     timestamp: string;
 }
+=======
+export type CalculatorType = 'traumaOcular' | 'dryEye' | 'astigmatismo' | 'presbiopia' | 'refração' | 'vertex';
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7

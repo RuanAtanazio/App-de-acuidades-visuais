@@ -194,13 +194,21 @@ export const VideosPage: React.FC = () => {
         const file = event.target.files?.[0];
         if (file) {
             const reader = new FileReader();
+<<<<<<< HEAD
             reader.onload = async (e) => {
+=======
+            reader.onload = (e) => {
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
                 const newVideo: Video = {
                     id: `video_${Date.now()}`,
                     name: file.name,
                     url: e.target?.result as string,
                 };
+<<<<<<< HEAD
                 await addVideo(newVideo);
+=======
+                addVideo(newVideo);
+>>>>>>> 55c9eae83c5b5087bd5334a8c2bd725e8a8a5db7
             };
             reader.readAsDataURL(file);
         }

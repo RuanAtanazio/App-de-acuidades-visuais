@@ -26,11 +26,37 @@ const AmslerGridTest: React.FC = () => (
     </div>
 );
 
-// NEW: Added a new test component for the Pediatric Chart.
-// FIX: Replaced the unreliable Pinterest image link with a stable one to ensure the chart always loads correctly.
-const PediatricChartTest: React.FC = () => (
-    <img src="https://www.provisu.ch/images/b/b8/Echelle-de-Monoyer-enfants.png" alt="Pediatric Vision Chart" className="max-w-full max-h-full object-contain bg-white p-2" />
-);
+
+// NOVO: Componente que exibe as imagens locais da tabela pediátrica como carrossel
+const PediatricChartTest: React.FC = () => {
+    const [index, setIndex] = useState(0);
+    const images = [
+        '/imagens teste infantil/imagem 1.png',
+        '/imagens teste infantil/imagem 2.png',
+        '/imagens teste infantil/imagem 3.png',
+        '/imagens teste infantil/imagem 4.png',
+        '/imagens teste infantil/imagem 5.png',
+        '/imagens teste infantil/imagem 6.png',
+        '/imagens teste infantil/imagem 7.png',
+        '/imagens teste infantil/imagem 8.png',
+    ];
+
+    const handlePrev = () => setIndex(i => Math.max(0, i - 1));
+    const handleNext = () => setIndex(i => Math.min(images.length - 1, i + 1));
+
+    return (
+        <div className="flex flex-col items-center gap-4 w-full h-full">
+            <div className="w-[70vmin] h-[70vmin] border-4 border-gray-300 bg-white p-2 rounded-lg flex items-center justify-center">
+                <img src={images[index]} alt={`Tabela Pediátrica ${index + 1}`} className="w-full h-full object-contain" />
+            </div>
+            <div className="flex gap-2 mt-2">
+                <button onClick={handlePrev} disabled={index === 0} className="px-4 py-2 bg-gray-200 rounded-md">Anterior</button>
+                <span className="text-sm">Imagem {index + 1} / {images.length}</span>
+                <button onClick={handleNext} disabled={index === images.length - 1} className="px-4 py-2 bg-gray-200 rounded-md">Próxima</button>
+            </div>
+        </div>
+    );
+};
 
 // NEW: Re-implemented the Bichromatic Test to be dynamic and interactive as requested.
 // It now displays lines of letters that are added progressively with the "Next" button.
@@ -229,59 +255,31 @@ const LandoltCTest: React.FC<{ line: number, size: number }> = ({ line, size }) 
     );
 };
 
+
+// NOVO: Componente que exibe as imagens locais do teste Ishihara como carrossel
 const IshiharaTest: React.FC = () => {
-    const { t } = useI18n();
-    const plates = useMemo(() => [
-        { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ishihara_1.svg/200px-Ishihara_1.svg.png', answer: '12' },
-        { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Ishihara_2.svg/200px-Ishihara_2.svg.png', answer: '8' },
-        { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Ishihara_3.svg/200px-Ishihara_3.svg.png', answer: '29' },
-        { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Ishihara_4.svg/200px-Ishihara_4.svg.png', answer: '5' },
-        { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Ishihara_5.svg/200px-Ishihara_5.svg.png', answer: '3' },
-        { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Ishihara_6.svg/200px-Ishihara_6.svg.png', answer: '15' },
-        { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Ishihara_7.svg/200px-Ishihara_7.svg.png', answer: '74' },
-        { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Ishihara_8.svg/200px-Ishihara_8.svg.png', answer: '6' },
-        { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Ishihara_9.svg/200px-Ishihara_9.svg.png', answer: '45' },
-        { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Ishihara_10.svg/200px-Ishihara_10.svg.png', answer: '7' },
-        { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Ishihara_11.svg/200px-Ishihara_11.svg.png', answer: '16' },
-        { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Ishihara_12.svg/200px-Ishihara_12.svg.png', answer: '73' },
-        { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Ishihara_13.svg/200px-Ishihara_13.svg.png', answer: 'nothing' },
-        { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ishihara_14.svg/200px-Ishihara_14.svg.png', answer: 'nothing' },
-        { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Ishihara_16.svg/200px-Ishihara_16.svg.png', answer: '26' },
-        { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Ishihara_17.svg/200px-Ishihara_17.svg.png', answer: '42' },
-    ], []);
+    const [index, setIndex] = useState(0);
+    const images = [
+        '/imagens teste ishiara/ishiara 1.jpg',
+        '/imagens teste ishiara/ishiara 2.jpg',
+        '/imagens teste ishiara/ishiara 3.jpg',
+        '/imagens teste ishiara/ishiara 4.jpg',
+        '/imagens teste ishiara/ishiara 5.jpg',
+    ];
 
-    const [current, setCurrent] = useState(0);
-    const [answer, setAnswer] = useState('');
-    const [results, setResults] = useState<(boolean | null)[]>(Array(plates.length).fill(null));
-
-    const handleSubmit = () => {
-        const isCorrect = answer.toLowerCase() === plates[current].answer;
-        setResults(prev => {
-            const newResults = [...prev];
-            newResults[current] = isCorrect;
-            return newResults;
-        });
-        setAnswer('');
-        if (current < plates.length - 1) {
-            setCurrent(c => c + 1);
-        } else {
-            const correctCount = results.filter((r, i) => r === null ? isCorrect : r).length;
-            alert(`${t('testRunner.ishihara.result')}: ${correctCount} / ${plates.length}`);
-        }
-    };
+    const handlePrev = () => setIndex(i => Math.max(0, i - 1));
+    const handleNext = () => setIndex(i => Math.min(images.length - 1, i + 1));
 
     return (
-        <div className="flex flex-col items-center gap-4">
-            <p>{t('testRunner.ishihara.prompt')}</p>
-            {/* UPDATE: Enlarged the test area and changed it to a square to ensure images are fully visible and large. */}
+        <div className="flex flex-col items-center gap-4 w-full h-full">
             <div className="w-[70vmin] h-[70vmin] border-4 border-gray-300 bg-white p-2 rounded-lg flex items-center justify-center">
-                <img src={plates[current].url} alt="Ishihara Plate" className="w-full h-full object-contain"/>
+                <img src={images[index]} alt={`Ishihara ${index + 1}`} className="w-full h-full object-contain" />
             </div>
-            <div className="flex gap-2">
-                <input type="text" value={answer} onChange={e => setAnswer(e.target.value)} placeholder={t('testRunner.ishihara.placeholder')} className="p-2 border rounded-md text-center"/>
-                <button onClick={handleSubmit} className="px-6 py-2 bg-secondary text-white rounded-md">{t('testRunner.submit')}</button>
+            <div className="flex gap-2 mt-2">
+                <button onClick={handlePrev} disabled={index === 0} className="px-4 py-2 bg-gray-200 rounded-md">Anterior</button>
+                <span className="text-sm">Imagem {index + 1} / {images.length}</span>
+                <button onClick={handleNext} disabled={index === images.length - 1} className="px-4 py-2 bg-gray-200 rounded-md">Próxima</button>
             </div>
-            <p className="text-sm text-gray-500">{t('testRunner.plate')} {current + 1} / {plates.length}</p>
         </div>
     );
 };
